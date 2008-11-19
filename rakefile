@@ -1,0 +1,22 @@
+require 'rubygems'
+require 'hoe'
+
+$:.unshift './lib'
+
+require 'pinyin'
+
+Hoe.new('pinyin', Pinyin::VERSION) do |p|
+  p.rubyforge_name = 'pinyin'
+  p.summary = 'A conversion library for Chinese transcription methods like Hanyu Pinyin, Bopomofo and Wade-Giles.'
+  p.description = p.paragraphs_of('README.txt', 2).join
+  p.url = 'http://rubyforge.org/projects/pinyin'
+  p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
+  p.email = 'pinyin@arnebrasseur.net'
+  p.author = 'Arne Brasseur'
+  p.extra_deps << ['facets', '>= 2.4.0']
+  p.spec_extras = {
+    :extra_rdoc_files => ['README.txt', 'History.txt'],
+    :rdoc_options => ['--main', 'README.txt'],
+    :platform => Gem::Platform::RUBY
+  }
+end
