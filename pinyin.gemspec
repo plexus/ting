@@ -1,4 +1,3 @@
-(in /home/arne/src/arnebrasseur-pinyin)
 Gem::Specification.new do |s|
   s.name = %q{pinyin}
   s.version = "0.1.5"
@@ -9,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = %q{Pinyin can convert between various systems for phonetically writing Mandarin Chinese. It can also handle various representation of tones, so it can be used to convert pinyin with numbers to pinyin with tones.}
   s.email = %q{pinyin@arnebrasseur.net}
   s.extra_rdoc_files = ["README.txt", "History.txt"]
-  s.files = ["History.txt", "Manifest.txt", "README.txt", "Rakefile", "TODO", "examples/cgiform/cgiform.rb", "examples/cgiform/template.rhtml", "examples/hello.rb", "lib/pinyin.rb", "lib/pinyin/conversion.rb", "lib/pinyin/conversions.rb", "lib/pinyin/conversions/hanyu.rb", "lib/pinyin/data/comparison.csv", "lib/pinyin/data/final.csv", "lib/pinyin/data/initial.csv", "lib/pinyin/data/paladiy.txt", "lib/pinyin/data/rules.yaml", "lib/pinyin/data/valid_pinyin.yaml", "lib/pinyin/exception.rb", "lib/pinyin/groundwork.rb", "lib/pinyin/string.rb", "lib/pinyin/support.rb", "lib/pinyin/tones.rb", "lib/pinyin/tones/accents.rb", "lib/pinyin/tones/marks.rb", "lib/pinyin/tones/no_tones.rb", "lib/pinyin/tones/numbers.rb", "rakefile", "script/update", "test/test_comparison.rb", "test/test_hanyu_coverage.rb"]
+  s.files = ["History.txt", "Manifest.txt", "README.txt", "rakefile", "TODO", "examples/cgiform/cgiform.rb", "examples/cgiform/template.rhtml", "examples/hello.rb", "lib/pinyin.rb", "lib/pinyin/conversion.rb", "lib/pinyin/conversions.rb", "lib/pinyin/conversions/hanyu.rb", "lib/pinyin/data/comparison.csv", "lib/pinyin/data/final.csv", "lib/pinyin/data/initial.csv", "lib/pinyin/data/paladiy.txt", "lib/pinyin/data/rules.yaml", "lib/pinyin/data/valid_pinyin.yaml", "lib/pinyin/exception.rb", "lib/pinyin/groundwork.rb", "lib/pinyin/string.rb", "lib/pinyin/support.rb", "lib/pinyin/tones.rb", "lib/pinyin/tones/accents.rb", "lib/pinyin/tones/marks.rb", "lib/pinyin/tones/no_tones.rb", "lib/pinyin/tones/numbers.rb", "rakefile", "script/update", "test/test_comparison.rb", "test/test_hanyu_coverage.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://rubyforge.org/projects/pinyin}
   s.rdoc_options = ["--main", "README.txt"]

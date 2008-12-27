@@ -1,7 +1,7 @@
 History.txt
 Manifest.txt
 README.txt
-Rakefile
+rakefile
 TODO
 examples/cgiform/cgiform.rb
 examples/cgiform/template.rhtml
