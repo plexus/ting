@@ -1,4 +1,0 @@
-sudo gem uninstall pinyin 
-rake clean
-rake package
-sudo gem install pkg/pinyin -y
