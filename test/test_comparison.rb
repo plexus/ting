@@ -1,4 +1,4 @@
-require 'pinyin'
+require 'ting'
 require 'test/unit'
 require 'csv'
 
@@ -7,7 +7,7 @@ require 'csv'
 # Since I can't find another reference of the hanyu pinyin 'lo', I have removed it from the table
 
 class TestCompare < Test::Unit::TestCase
-  CHART=CSV.parse(IO.read(File.dirname(__FILE__)+'/../lib/pinyin/data/comparison.csv'))
+  CHART=CSV.parse(IO.read(File.dirname(__FILE__)+'/../lib/ting/data/comparison.csv'))
   COMPARE=[:hanyu, :wadegiles, :zhuyin, :tongyong]
 
 
@@ -22,8 +22,8 @@ class TestCompare < Test::Unit::TestCase
   end
 
   def compare(from, to)
-    reader = Pinyin::Reader.new(from, :no_tones)
-    writer = Pinyin::Writer.new(to, :no_tones)
+    reader = Ting::Reader.new(from, :no_tones)
+    writer = Ting::Writer.new(to, :no_tones)
 
     ifrom = CHART[0].index from.to_s
     ito   = CHART[0].index to.to_s

@@ -1,7 +1,7 @@
 require 'csv'
 require 'yaml'
 
-module Pinyin
+module Ting
   module Conversions
     All=[]
 
@@ -9,7 +9,7 @@ module Pinyin
 
     #Load various representations for initials and finals
     %w(Initial Final).each do |c|
-      klazz=Pinyin.const_get c
+      klazz=Ting.const_get c
       begin
         CSV.open(DATA_DIR+c.downcase+'.csv', 'r').each do |name, *values|
           All << name.to_s unless All.index name || name =~ /name|standalone/i

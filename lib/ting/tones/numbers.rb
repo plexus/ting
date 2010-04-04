@@ -1,4 +1,4 @@
-module Pinyin
+module Ting
   module Tones
     class Numbers < Tone
       class <<self

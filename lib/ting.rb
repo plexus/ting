@@ -1,33 +1,23 @@
 # Handle several romanization systems for Mandarin Chinese
 #
-# Author::     Arne Brasseur (pinyin@arnebrasseur.net)
-# Copyright::  Copyright (c) 2007, Arne Brasseur
-# Licence::    GNU General Public License, latest version
+# Author::     Arne Brasseur (arne@arnebrasseur.net)
+# Copyright::  Copyright (c) 2007-2010, Arne Brasseur
+# Licence::    GNU General Public License, v3
 
 $: << File.dirname(__FILE__)
 
 #require "facets/string/camelcase"
-class String
-  #upper_camelcase from facets
-  def camelcase
-    str = dup
-    #str.gsub!(/\/(.?)/){ "::#{$1.upcase}" }  # NOT SO SURE ABOUT THIS
-    str.gsub!(/(?:_+|-+)([a-z])/){ $1.upcase }
-    str.gsub!(/(\A|\s)([a-z])/){ $1 + $2.upcase }
-    str
-  end
-end
 
-require 'pinyin/support'
-require 'pinyin/groundwork'
-require 'pinyin/exception'
+require 'ting/support'
+require 'ting/groundwork'
+require 'ting/exception'
 
-require 'pinyin/tones'
-require 'pinyin/conversion'
-require 'pinyin/conversions'
-require 'pinyin/conversions/hanyu'
+require 'ting/tones'
+require 'ting/conversion'
+require 'ting/conversions'
+require 'ting/conversions/hanyu'
 
-module Pinyin
+module Ting
   VERSION = "0.1.6"
 
   class Reader
@@ -98,3 +88,4 @@ module Pinyin
 end
 
 
+Pinyin = Ting #legacy support

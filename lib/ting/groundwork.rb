@@ -5,7 +5,7 @@
 #  * Syllable
 #  * ILLEGAL_COMBINATIONS
 
-module Pinyin
+module Ting
 
   #
   # A Chinese initial (start of a syllable)
@@ -13,9 +13,8 @@ module Pinyin
 
   class Initial
     attr :name
-    def initialize(n)
-      @name=n
-    end
+
+    def initialize(n) ; @name=n ; end
 
     All = %w(
       Empty Bo Po Mo Fo De Te Ne Le Ge Ke He
@@ -40,10 +39,9 @@ module Pinyin
       TonelessSyllable.new(self,f)
     end
 
-    def inspect()
-      "<#{self.class.name}::#{@name}>"
-    end
+    def inspect() ; "<#{self.class.name}::#{@name}>" ; end
   end
+
 
   #
   # A Chinese final (end of a syllable)
@@ -51,9 +49,8 @@ module Pinyin
   
   class Final
     attr :name
-    def initialize(n)
-      @name=n
-    end
+
+    def initialize(n) ; @name=n ; end
 
     All=%w(
       Empty A O E Ee Ai Ei Ao Ou An En Ang Eng Ong Er 
@@ -61,9 +58,7 @@ module Pinyin
       U Ua Uo Uai Ui Uan Un Uang Ueng V Ue Van Vn Iong
     ).map{|c| const_set c, Final.new(c)}
     
-    class <<self
-      private :new
-    end
+    class <<self ; private :new ; end
     
     Groups=[
             Group_0=[ Empty ],
@@ -72,9 +67,8 @@ module Pinyin
             Group_U=[ U,Ua,Uo,Uai,Ui,Uan,Un,Uang,Ueng ],
             Group_V=[ V,Ue,Van,Vn,Iong]
            ]
-    def inspect()
-      "<#{self.class.name}::#{name}>"
-    end
+
+    def inspect() ; "<#{self.class.name}::#{name}>" ; end
   end
 
 
@@ -126,6 +120,7 @@ module Pinyin
     alias :to_s :inspect
   end
 
+
   #
   # Some groups of initials and finals may not be combined
   # This list is not exhaustive but is sufficient to resolve ambiguity
@@ -162,7 +157,6 @@ module Pinyin
 
   class <<self
 
-
     #
     # Yields a block for any valid initial/final pair
     #
@@ -178,6 +172,6 @@ module Pinyin
         end
       end
     end
-  end
-                       
+
+  end                   
 end

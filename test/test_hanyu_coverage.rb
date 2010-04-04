@@ -1,16 +1,16 @@
 require 'test/unit'
-require 'pinyin.rb'
+require 'ting'
 require 'yaml'
 
 $KCODE='u'
 
 module HanyuCoverage 
-  grid=YAML.load(IO.read(File.dirname(__FILE__)+'/../lib/pinyin/data/valid_pinyin.yaml'))
+  grid=YAML.load(IO.read(File.dirname(__FILE__)+'/../lib/ting/data/valid_pinyin.yaml'))
   grid.each do |fname, row|
     row.each do |iname, hanyu|
       eval %[
         class Test_#{hanyu} < Test::Unit::TestCase
-          include Pinyin
+          include Ting
           def initialize(s)
             super(s)
             @reader = Reader.new(:hanyu, :no_tones)

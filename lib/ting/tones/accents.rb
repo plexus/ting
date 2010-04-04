@@ -1,4 +1,4 @@
-module Pinyin
+module Ting
   module Tones
     class Accents < Tone
       class <<self

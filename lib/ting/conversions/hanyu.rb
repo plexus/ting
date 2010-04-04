@@ -1,4 +1,4 @@
-module Pinyin
+module Ting
   module Conversions
     class Hanyu
       def initialize(tone = :numbers, options = {})
@@ -8,7 +8,7 @@ module Pinyin
         if Class === tone
           @tone = tone
         else
-          @tone = Pinyin::Tones.const_get(tone.to_s.camelcase)
+          @tone = Ting::Tones.const_get(tone.to_s.camelcase)
         end
       end
 
@@ -18,7 +18,7 @@ module Pinyin
       
       def valid_character_regexp!
         valid_chars = []
-        Pinyin.valid_combinations do |i,f|
+        Ting.valid_combinations do |i,f|
           1.upto(5) do |tone|
             valid_chars += @tone.add_tone(Conversions.unparse(:hanyu,TonelessSyllable.new(i,f)), tone).chars
           end
@@ -70,7 +70,7 @@ module Pinyin
       end
 
        #     self.gsub('u:','ü').gsub(/[A-Za-züÜ]{1,5}\d/) do |m|
-       #Pinyin.HanyuWriter(:accents) << Pinyin.HanyuReader(:numbers).parse(m.downcase)
+       #Ting.HanyuWriter(:accents) << Ting.HanyuReader(:numbers).parse(m.downcase)
        #end
     end
   end
