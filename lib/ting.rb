@@ -16,7 +16,7 @@ require 'ting/conversions'
 require 'ting/conversions/hanyu'
 
 module Ting
-  VERSION = "0.2.0"
+  VERSION = "0.2.1"
 
   class Reader
     def initialize(conv, tone)
