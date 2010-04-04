@@ -6,7 +6,17 @@
 
 $: << File.dirname(__FILE__)
 
-require "facets/string/camelcase"
+#require "facets/string/camelcase"
+class String
+  #upper_camelcase from facets
+  def camelcase
+    str = dup
+    #str.gsub!(/\/(.?)/){ "::#{$1.upcase}" }  # NOT SO SURE ABOUT THIS
+    str.gsub!(/(?:_+|-+)([a-z])/){ $1.upcase }
+    str.gsub!(/(\A|\s)([a-z])/){ $1 + $2.upcase }
+    str
+  end
+end
 
 require 'pinyin/support'
 require 'pinyin/groundwork'
@@ -18,7 +28,7 @@ require 'pinyin/conversions'
 require 'pinyin/conversions/hanyu'
 
 module Pinyin
-  VERSION = "0.1.5"
+  VERSION = "0.1.6"
 
   class Reader
     def initialize(conv, tone)
