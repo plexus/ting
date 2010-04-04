@@ -13,8 +13,8 @@ module HanyuCoverage
           include Ting
           def initialize(s)
             super(s)
-            @reader = Reader.new(:hanyu, :no_tones)
-            @writer = Writer.new(:hanyu, :no_tones)
+            @reader = Ting.reader(:hanyu, :no_tones)
+            @writer = Ting.writer(:hanyu, :no_tones)
           end
 
           def test_parse_#{hanyu}

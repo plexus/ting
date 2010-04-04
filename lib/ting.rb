@@ -6,8 +6,6 @@
 
 $: << File.dirname(__FILE__)
 
-#require "facets/string/camelcase"
-
 require 'ting/support'
 require 'ting/groundwork'
 require 'ting/exception'
@@ -18,16 +16,17 @@ require 'ting/conversions'
 require 'ting/conversions/hanyu'
 
 module Ting
-  VERSION = "0.1.6"
+  VERSION = "0.2.0"
 
   class Reader
     def initialize(conv, tone)
       @conv = conv.to_s
       @tone = Tones.const_get tone.to_s.camelcase
+      @cache = {}
     end
 
     def parse(str)
-      Conversions.tokenize(str).map do |s, pos|
+      return @cache[str] ||= Conversions.tokenize(str).map do |s, pos|
         tone,syll = @tone.pop_tone(s)
         tsyll = Conversions.parse(@conv,syll)
         ini, fin = tsyll.initial, tsyll.final
@@ -47,18 +46,20 @@ module Ting
     def initialize(conv, tone)
       @conv = conv.to_s
       @tone = Tones.const_get tone.to_s.camelcase
+      @cache = {}
     end
 
-    def unparse(py)
+    def generate(py)
       conv=lambda {|syll| @tone.add_tone(Conversions.unparse(@conv,syll),syll.tone)}
-      if py.respond_to? :map
+      return @cache[py] ||= if py.respond_to? :map
         py.map(&conv).join(' ')
       else
         conv.call(py)
       end
     end
 
-    alias :<< :unparse
+    alias :<< :generate
+    alias :unparse :generate
   end
 
   class Converter
@@ -75,16 +76,17 @@ module Ting
   end
   
   class <<self
-    Conversions::All.each do |c|
-      define_method "#{c.to_s.camelcase}Reader" do |tone|
-        Reader.new(c, tone)
-      end
+    READERS={}
+    WRITERS={}
 
-      define_method "#{c.to_s.camelcase}Writer" do |tone|
-        Writer.new(c, tone)
-      end
+    def reader(format, tones)
+      return READERS[[format, tones]] ||= Reader.new(format,tones)
+    end
+    def writer(format, tones)
+      return WRITERS[[format, tones]] ||= Writer.new(format,tones)
     end
   end
+
 end
 
 

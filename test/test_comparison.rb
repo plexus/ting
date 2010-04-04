@@ -22,8 +22,8 @@ class TestCompare < Test::Unit::TestCase
   end
 
   def compare(from, to)
-    reader = Ting::Reader.new(from, :no_tones)
-    writer = Ting::Writer.new(to, :no_tones)
+    reader = Ting.reader(from, :no_tones)
+    writer = Ting.writer(to, :no_tones)
 
     ifrom = CHART[0].index from.to_s
     ito   = CHART[0].index to.to_s
