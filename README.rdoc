@@ -1,50 +1,85 @@
-pinyin
-    by Arne Brasseur
+= Ting
 
-== DESCRIPTION:
-
-Pinyin can convert between various systems for phonetically
+Ting can convert between various systems for phonetically
 writing Mandarin Chinese. It can also handle various representation
 of tones, so it can be used to convert pinyin with numbers
 to pinyin with tones.
 
-Supported formats include Hanyu Pinyin, Bopomofo, Wade-Giles
-and International Phonetic Alphabet (IPA).
+Hanyu Pinyin, Bopomofo, Wade-Giles, Tongyong Pinyin
+and International Phonetic Alphabet (IPA) are supported.
 
-== FEATURES/PROBLEMS:
-  
-== SYNOPSIS:
+== SYNOPSIS
 
-   require 'pinyin'
+To parse your strings create a +Reader+ object. +Reader.new+ takes two
+parameters : the transliteration format, and the way that tones are represented.
 
-   reader = Pinyin::Reader.new(:hanyu, :tones)
+To some extent these can be mixed and matched.
+
+=== Formats
+
+ * +:hanyu+ Hanyu Pinyin
+ * +:zhuyin+ Zhuyin Fuhao (a.k.a. Bopomofo)
+ * +:wadegiles+ Wade Giles
+ * +:ipa+ International Phonetic Alphabet
+ * +:tongyong+ Tongyong Pinyin
+
+=== Tones
+ 
+ * +:numbers+ Simply put a number after the syllable, easy to type
+ * +:accents+ Use diacritics, follows the Hanyu Pinyin rules, there needs to be at least one vowel to apply this to, not usable with IPA or Bopomofo
+ * +:supernum+ Superscript numerals, typically used for Wade-Giles
+ * +:marks+ Tone mark after the syllable, typically used for Bopomofo
+ * +:ipa+ IPA tone marks
+ * +:no_tones+ Use no tones
+
+== Examples
+
+Parse Hanyu Pinyin
+
+   require 'ting'
+
+   reader = Ting::Reader.new(:hanyu, :numbers)
    reader << "wo3 ai4 ni3"
-    # => [<Pinyin::Syllable <initial=Empty, final=Uo, tone=3>>, 
-    #     <Pinyin::Syllable <initial=Empty, final=Ai, tone=4>>, 
-    #     <Pinyin::Syllable <initial=Ne, final=I, tone=3>>]
+    # => [<Ting::Syllable <initial=Empty, final=Uo, tone=3>>, 
+    #     <Ting::Syllable <initial=Empty, final=Ai, tone=4>>, 
+    #     <Ting::Syllable <initial=Ne, final=I, tone=3>>]
 
-   writer = Pinyin::Writer.new(:zhuyin, :marks)
-   
-   writer << (reader << "wo3 ai4 ni3")
+Generate Bopomofo
+
+   zhuyin = Ting::Writer.new(:zhuyin, :marks)
+   zhuyin << (reader << "wo3 ai4 ni3")
    # => "ㄨㄛˇ ㄞˋ ㄋㄧˇ"
 
-   require 'pinyin/string'
+Generate Wade-Giles
+
+   wadegiles = Ting::Writer.new(:wadegiles, :supernum)
+   wadegiles << (reader << "yi1 ge5 bu2 gou4")
+   # => "i¹ ko pu² kou⁴"
+
+Generate IPA
+
+   ipa = Ting::Writer.new(:ipa, :ipa)
+   ipa << (reader << "you3 peng2 zi4 yuan2 fang1 lai2")
+   # => "iou˧˩˧ pʰeŋ˧˥ ts˥˩ yɛn˧˥ faŋ˥˥ lai˧˥"
+
+Since this is such a common use case, a convenience method to add diacritics to pinyin.
+
+   require 'ting/string'
 
    "wo3 ai4 ni3".pretty_tones
    # => "wǒ ài nǐ"
 
-== REQUIREMENTS:
+== REQUIREMENTS
 
 * $KCODE has to be set to "UTF8" for everything to work correctly
-* Facets
 
-== INSTALL:
+== INSTALL
 
-* gem install pinyin
+* gem install ting
 
-== LICENSE:
-Copyright (c) 2004-2007, Arne Brasseur. (http://www.arnebrasseur.net)
+== LICENSE
 
-Available as Free Software under the GPLv3 License, see LICENSE.txt for
-details
+Copyright (c) 2004-2010, Arne Brasseur. (http://www.arnebrasseur.net)
+
+Available as Free Software under the GPLv3 License, see LICENSE.txt for details
 

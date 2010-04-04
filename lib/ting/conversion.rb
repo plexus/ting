@@ -1,4 +1,4 @@
-module Pinyin
+module Ting
   
   #
   # Base class for conversions like Hanyu pinyin, 
@@ -30,7 +30,7 @@ module Pinyin
       if Tone === tone
         @tone = tone
       else
-        @tone = Pinyin::Tones.const_get(tone.to_s.camelcase)
+        @tone = Ting::Tones.const_get(tone.to_s.camelcase)
       end
 
       @name = self.class.name.underscore

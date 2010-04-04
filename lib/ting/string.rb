@@ -9,8 +9,8 @@ class String
 
   def bpmf
     self.gsub('u:','ü').scan(/[A-Za-züÜ]{1,5}\d/).map do |m|
-      Pinyin.ZhuyinWriter(:marks) << 
-        (Pinyin.HanyuReader(:numbers) << m.downcase)
+      Ting.Writer(:zhuyin, :marks) << 
+        (Ting.Reader(:hanyu, :numbers) << m.downcase)
     end.join(' ')
   end
 end

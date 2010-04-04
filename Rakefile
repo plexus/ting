@@ -3,7 +3,7 @@ require 'rubygems'
 require 'rake'
 require 'rake/testtask'
 
-task :default => [:test_units]
+task :default => [:"test:ting"]
 
 namespace "test" do
   Rake::TestTask.new("ting") do |t|

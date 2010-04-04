@@ -47,6 +47,12 @@ require "ting/tones/numbers"
 # Tone accents, for Hanyu pinyin
 require "ting/tones/accents"
 
+# Superscript numerals, for Wade-Giles
+require "ting/tones/supernum"
+
+# IPA tone symbols
+require "ting/tones/ipa"
+
 # No tones
 require "ting/tones/no_tones"
 
