@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class String
   PINYIN_CACHE={}
 

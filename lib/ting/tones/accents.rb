@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module Ting
   module Tones
     class Accents < Tone
@@ -22,11 +24,16 @@ module Ting
         syll.gsub!('ü','v')
         tone %= MAX_TONE
         case syll
-        when /a/ : syll.sub(/a/, tone_glyph(:a,tone))
-        when /e/ : syll.sub(/e/, tone_glyph(:e,tone))
-        when /o/ : syll.sub(/o/, tone_glyph(:o,tone))
-        when /(i|u|v)/ : syll.sub($1, tone_glyph($1,tone))
-        else syll
+        when /a/
+          syll.sub(/a/, tone_glyph(:a,tone))
+        when /e/
+          syll.sub(/e/, tone_glyph(:e,tone))
+        when /o/
+          syll.sub(/o/, tone_glyph(:o,tone))
+        when /(i|u|v)/
+          syll.sub($1, tone_glyph($1,tone))
+        else
+          syll
         end  
       end
 

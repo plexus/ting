@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module Ting
   module Tones
     class Marks < Tone
@@ -11,10 +13,14 @@ module Ting
 
         def peek_tone(syll)
           case syll
-          when /ˊ/ : 2
-          when /ˇ/ : 3
-          when /ˋ/ : 4
-          when /˙/ : NEUTRAL_TONE
+          when /ˊ/
+            2
+          when /ˇ/
+            3
+          when /ˋ/
+            4
+          when /˙/
+            NEUTRAL_TONE
           else 
             1
           end
