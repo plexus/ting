@@ -22,7 +22,7 @@ module Ting
         valid_chars = []
         Ting.valid_combinations do |i,f|
           1.upto(5) do |tone|
-            valid_chars += @tone.add_tone(Conversions.unparse(:hanyu,TonelessSyllable.new(i,f)), tone).chars
+            valid_chars += @tone.add_tone(Conversions.unparse(:hanyu,TonelessSyllable.new(i,f)), tone).uchars
           end
         end
         valid_chars.sort!.uniq!
@@ -32,7 +32,7 @@ module Ting
       def parse(string)
         result = []
         looking_at = []
-        string.chars.each do |ch|
+        string.uchars.each do |ch|
           head, syll = parse_tail(looking_at)
           looking_at << ch
           if syll && !parse_tail(looking_at)

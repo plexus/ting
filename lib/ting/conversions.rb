@@ -12,7 +12,8 @@ module Ting
       klazz=Ting.const_get c
       begin
         CSV.open(DATA_DIR+c.downcase+'.csv', 'r').each do |name, *values|
-          All << name.to_s unless All.index name || name =~ /name|standalone/i
+          next if name == "name"
+          All << name.to_s unless All.include?(name) || name =~ /standalone/i
           klazz.class_eval {attr_accessor name.to_sym}
           values.each_with_index do |v,i|
             klazz::All[i].send(name+'=', v)
@@ -29,11 +30,15 @@ module Ting
     @@rules=YAML::load(IO.read(DATA_DIR+'rules.yaml'))
 
     def self.parse(type, string)
-      if (fin = Final::All.find {|f| f.respond_to?("#{type}_standalone") && f.send("#{type}_standalone") == string})
-        TonelessSyllable.new(Initial::Empty, fin)
+      if (final = Final::All.find {|f| f.respond_to?("#{type}_standalone") && f.send("#{type}_standalone") == string})
+        TonelessSyllable.new(Initial::Empty, final)
       else
-        Initial::All.find do |ini|
-          Final::All.find do |fin|
+        finals = Final::All.dup
+        finals.unshift(finals.delete(Final::Uo)) #hack : move Uo to the front
+                                                 #otherwise wadegiles parses 'lo' as Le+O rather than Le+Uo
+                                                 #probably better to add a hardcoded 'overrule' table for these cases
+        Initial::All.each do |ini|
+          finals.each do |fin|
             next                                  if TonelessSyllable.illegal?(ini,fin)
             return TonelessSyllable.new(ini,fin)  if apply_rules(type, (ini.send(type)||'') + (fin.send(type)||'')) == string
           end

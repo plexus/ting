@@ -12,7 +12,9 @@ module Ting
         end
 
         def peek_tone(syll)
-          return t if t = GLYPHS.index(syll.chars[-1])
+          if t = GLYPHS.index(syll.uchars[-1])
+            return t
+          end
           return NEUTRAL_TONE
         end
 

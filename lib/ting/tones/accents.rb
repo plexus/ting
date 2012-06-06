@@ -63,7 +63,7 @@ module Ting
           end
         end
 
-    end
+      end
     end
   end
 end

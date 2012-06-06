@@ -144,8 +144,8 @@ module Ting
      [Initial::Group_1, Final::Group_V],
      [Initial::Group_3, Final::Group_V],
 
-     #2008.05.26 lo is also valid!
-     #[Initial::Group_2, [Final::O]],  #Only bo, po, mo and fo are valid -o combinations
+     # For "咯 / lo5" to parse correctly we need to list "Le + O" as valid,
+     [Initial::Group_2 - [Initial::Le], [Final::O]],  #Only bo, po, mo and fo are valid -o combinations
      [Initial::Group_3, [Final::O]],
      [Initial::Group_4, [Final::O]],
      [Initial::Group_5, [Final::O]],

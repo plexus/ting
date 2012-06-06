@@ -1,5 +1,5 @@
 class String
-  def chars
+  def uchars
     self.unpack('U*').map{|c| [c].pack('U')}
   end
 

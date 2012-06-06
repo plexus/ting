@@ -6,6 +6,7 @@
 
 $: << File.dirname(__FILE__)
 
+require 'ting/version'
 require 'ting/support'
 require 'ting/groundwork'
 require 'ting/exception'
@@ -16,8 +17,6 @@ require 'ting/conversions'
 require 'ting/conversions/hanyu'
 
 module Ting
-  VERSION = "0.2.1"
-
   class Reader
     def initialize(conv, tone)
       @conv = conv.to_s

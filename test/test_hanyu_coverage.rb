@@ -2,7 +2,9 @@ require 'test/unit'
 require 'ting'
 require 'yaml'
 
-$KCODE='u'
+if RUBY_VERSION =~ /^1.8/
+  $KCODE='u'
+end
 
 module HanyuCoverage 
   grid=YAML.load(IO.read(File.dirname(__FILE__)+'/../lib/ting/data/valid_pinyin.yaml'))
@@ -22,7 +24,7 @@ module HanyuCoverage
           end
 
           def test_unparse_#{hanyu}
-            ts=*@reader.parse('#{hanyu}')
+            ts=@reader.parse('#{hanyu}').first
             assert_not_nil(ts, 'Reader<:hanyu, :no_tone>#parse("#{hanyu}") returned nil')
             assert_equal(Initial::#{iname}, ts.initial, 'Wrong initial for `#{hanyu}`, expected Initial::#{iname}')
             assert_equal(Final::#{fname}, ts.final, 'Wrong final for `#{hanyu}`, expected Final::#{fname}')

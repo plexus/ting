@@ -29,7 +29,7 @@ class TestCompare < Test::Unit::TestCase
     ito   = CHART[0].index to.to_s
 
     CHART[1..-1].each do |vals|
-      assert_equal(vals[ito].strip, writer << (reader << vals[ifrom].strip), "Converting from #{from} to #{to} value #{vals[ito]}")
+      assert_equal(vals[ito].strip, writer << (reader << vals[ifrom].strip), "Converting `#{vals[ifrom]}' from #{from} to #{to} value #{vals[ito]}")
     end
   end
 end
