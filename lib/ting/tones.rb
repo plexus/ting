@@ -6,7 +6,7 @@ module Ting
     VALID_TONES  = 1..5
     MAX_TONE = NEUTRAL_TONE = 5
 
-    class <<self
+    class << self
       # Add a tone to a syllable
       def add_tone(s,t)
         s

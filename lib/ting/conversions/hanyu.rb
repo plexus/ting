@@ -22,7 +22,7 @@ module Ting
         valid_chars = []
         Ting.valid_combinations do |i,f|
           1.upto(5) do |tone|
-            valid_chars += @tone.add_tone(Conversions.unparse(:hanyu,TonelessSyllable.new(i,f)), tone).uchars
+            valid_chars += @tone.add_tone(Conversions.unparse(:hanyu,Syllable.new(i,f)), tone).uchars
           end
         end
         valid_chars.sort!.uniq!
