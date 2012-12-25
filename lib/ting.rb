@@ -4,8 +4,6 @@
 # Copyright::  Copyright (c) 2007-2010, Arne Brasseur
 # Licence::    GNU General Public License, v3
 
-$: << File.dirname(__FILE__)
-
 require 'ting/version'
 require 'ting/support'
 require 'ting/groundwork'
@@ -74,15 +72,12 @@ module Ting
     alias :<< :convert
   end
   
-  class <<self
-    READERS={}
-    WRITERS={}
-
+  class << self
     def reader(format, tones)
-      return READERS[[format, tones]] ||= Reader.new(format,tones)
+      Reader.new(format,tones)
     end
     def writer(format, tones)
-      return WRITERS[[format, tones]] ||= Writer.new(format,tones)
+      Writer.new(format,tones)
     end
   end
 

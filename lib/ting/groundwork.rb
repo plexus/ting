@@ -1,7 +1,7 @@
+# -*- coding: utf-8 -*-
 # Classes and constants used throughout the module
 #  * Initial
 #  * Final
-#  * TonelessSyllable
 #  * Syllable
 #  * ILLEGAL_COMBINATIONS
 
@@ -21,7 +21,7 @@ module Ting
       Ji Qi Xi Zhi Chi Shi Ri Zi Ci Si
       ).map{|c| const_set c, Initial.new(c)}
 
-    class <<self
+    class << self
       private :new
     end
 
@@ -36,7 +36,7 @@ module Ting
            ]
     
     def +(f)
-      TonelessSyllable.new(self,f)
+      Syllable.new(self,f)
     end
 
     def inspect() ; "<#{self.class.name}::#{@name}>" ; end
@@ -58,7 +58,7 @@ module Ting
       U Ua Uo Uai Ui Uan Un Uang Ueng V Ue Van Vn Iong
     ).map{|c| const_set c, Final.new(c)}
     
-    class <<self ; private :new ; end
+    class << self ; private :new ; end
     
     Groups=[
             Group_0=[ Empty ],
@@ -73,25 +73,28 @@ module Ting
 
 
   #
-  # Combination of an initial and a final
-  # Not to be confused with a syllable that has the neutral tone
-  #
+  # Combination of an initial and a final, a tone, and possible capitalization
+  # A tone of 'nil' means the tone is not specified
 
-  class TonelessSyllable
-    attr_accessor :initial, :final
+  class Syllable
+    attr_accessor :initial, :final, :tone, :capitalized
 
-    def initialize(initial, final)
-      self.initial = initial
-      self.final   = final
+    def initialize(initial, final, tone = nil, capitalized = false)
+      self.initial     = initial
+      self.final       = final
+      self.tone        = tone
+      self.capitalized = capitalized
     end
 
     def +(tone)
-      Syllable.new(initial, final, tone)
+      self.class.new(self.initial, self.final, tone, self.capitalized)
     end
 
     def inspect
-      "<#{self.class.name} <initial=#{initial.name}, final=#{final.name}>>"
+      "<#{self.class.name} <initial=#{initial.name}, final=#{final.name}, tone=#{tone}#{', capitalized' if capitalized}>>"
     end
+
+    alias :capitalized? :capitalized
 
     def self.illegal?(i,f)
       ILLEGAL_COMBINATIONS.any? {|in_gr, fin_gr| in_gr.include?(i) && fin_gr.include?(f)}
@@ -99,27 +102,6 @@ module Ting
 
     alias :to_s :inspect
   end
-
-
-  #
-  # Syllable : initial, final and tone
-  #
-
-  class Syllable < TonelessSyllable
-    attr_accessor :tone
-
-    def initialize(initial, final, tone)
-      super(initial, final)
-      self.tone = tone
-    end
-
-    def inspect
-      "<#{self.class.name} <initial=#{initial.name}, final=#{final.name}, tone=#{tone}>>"
-    end
-
-    alias :to_s :inspect
-  end
-
 
   #
   # Some groups of initials and finals may not be combined
@@ -155,7 +137,7 @@ module Ting
        # TODO: Ong is actually the same as Ueng, in Hanyu Pinyin : -ong or weng
     ]
 
-  class <<self
+  class << self
 
     #
     # Yields a block for any valid initial/final pair

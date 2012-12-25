@@ -31,7 +31,7 @@ module Ting
 
     def self.parse(type, string)
       if (final = Final::All.find {|f| f.respond_to?("#{type}_standalone") && f.send("#{type}_standalone") == string})
-        TonelessSyllable.new(Initial::Empty, final)
+        Syllable.new(Initial::Empty, final)
       else
         finals = Final::All.dup
         finals.unshift(finals.delete(Final::Uo)) #hack : move Uo to the front
@@ -39,8 +39,8 @@ module Ting
                                                  #probably better to add a hardcoded 'overrule' table for these cases
         Initial::All.each do |ini|
           finals.each do |fin|
-            next                                  if TonelessSyllable.illegal?(ini,fin)
-            return TonelessSyllable.new(ini,fin)  if apply_rules(type, (ini.send(type)||'') + (fin.send(type)||'')) == string
+            next                                  if Syllable.illegal?(ini,fin)
+            return Syllable.new(ini,fin)  if apply_rules(type, (ini.send(type)||'') + (fin.send(type)||'')) == string
           end
         end
       end
