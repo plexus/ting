@@ -87,6 +87,3 @@ module Ting
   end
 
 end
-
-
-Pinyin = Ting #legacy support
