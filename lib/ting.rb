@@ -19,18 +19,17 @@ module Ting
     def initialize(conv, tone)
       @conv = conv.to_s
       @tone = Tones.const_get tone.to_s.camelcase
-      @cache = {}
     end
 
     def parse(str)
-      return @cache[str] ||= Conversions.tokenize(str).map do |s, pos|
-        tone,syll = @tone.pop_tone(s)
+      Conversions.tokenize(str).map do |s, pos|
+        tone, syll = @tone.pop_tone(s)
         tsyll = Conversions.parse(@conv,syll)
         ini, fin = tsyll.initial, tsyll.final
         unless tone && fin && ini
           raise ParseError.new(s,pos),"Illegal syllable <#{s}> in input <#{str}> at position #{pos}." 
         end
-        Syllable.new(ini, fin, tone)
+        tsyll + tone
       end
     rescue Object => e
       raise ParseError.new(str,0), "Parsing of #{str.inspect} failed : #{e}"
@@ -43,16 +42,14 @@ module Ting
     def initialize(conv, tone)
       @conv = conv.to_s
       @tone = Tones.const_get tone.to_s.camelcase
-      @cache = {}
     end
 
-    def generate(py)
-      conv=lambda {|syll| @tone.add_tone(Conversions.unparse(@conv,syll),syll.tone)}
-      return @cache[py] ||= if py.respond_to? :map
-        py.map(&conv).join(' ')
-      else
-        conv.call(py)
-      end
+    def generate(syll)
+      Array(syll).map do |s|
+        str = @tone.add_tone(Conversions.unparse(@conv, s), s.tone)
+        str.capitalize! if s.capitalized?
+        str
+      end.join(' ')
     end
 
     alias :<< :generate

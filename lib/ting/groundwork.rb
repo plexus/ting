@@ -101,6 +101,11 @@ module Ting
     end
 
     alias :to_s :inspect
+
+    def ==( other )
+      [ other.initial, other.final, other.tone, other.capitalized ] == 
+        [ self.initial, self.final, self.tone, self.capitalized ]
+    end
   end
 
   #
@@ -146,14 +151,26 @@ module Ting
     def valid_combinations
       require 'yaml'
       inp = YAML::load(IO.read(File.join(File.dirname(__FILE__), 'data', 'valid_pinyin.yaml')))
-      inp.each do |final, initials|
-        final = Final.const_get(final)
-        initials.each do |initial, pinyin|
-          initial = Initial.const_get(initial)
-          yield(initial, final)
+      Enumerator.new do |yielder|
+        inp.each do |final, initials|
+          final = Final.const_get(final)
+          initials.each do |initial, pinyin|
+            initial = Initial.const_get(initial)
+            yielder << [initial, final]
+          end
         end
       end
     end
 
+    def all_syllables
+      Enumerator.new do |yielder|
+        valid_combinations.map do |i,f|
+          1.upto(5) do |t|
+            yielder << Syllable.new(i,f,t,false)
+            yielder << Syllable.new(i,f,t,true)
+          end
+        end
+      end
+    end
   end                   
 end
