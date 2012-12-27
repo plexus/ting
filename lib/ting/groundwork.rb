@@ -23,6 +23,8 @@ module Ting
 
     class << self
       private :new
+      include Enumerable
+      def each(&blk) ; All.each(&blk) ; end
     end
 
     Groups=[
@@ -58,7 +60,11 @@ module Ting
       U Ua Uo Uai Ui Uan Un Uang Ueng V Ue Van Vn Iong
     ).map{|c| const_set c, Final.new(c)}
     
-    class << self ; private :new ; end
+    class << self 
+      private :new
+      include Enumerable
+      def each(&blk) ; All.each(&blk) ; end
+    end
     
     Groups=[
             Group_0=[ Empty ],
@@ -148,7 +154,7 @@ module Ting
     # Yields a block for any valid initial/final pair
     #
 
-    def valid_combinations
+    def valid_combinations( &blk )
       require 'yaml'
       inp = YAML::load(IO.read(File.join(File.dirname(__FILE__), 'data', 'valid_pinyin.yaml')))
       Enumerator.new do |yielder|
@@ -159,10 +165,12 @@ module Ting
             yielder << [initial, final]
           end
         end
+      end.tap do |enum|
+        enum.each( &blk ) if blk
       end
     end
 
-    def all_syllables
+    def all_syllables( &blk )
       Enumerator.new do |yielder|
         valid_combinations.map do |i,f|
           1.upto(5) do |t|
@@ -170,6 +178,8 @@ module Ting
             yielder << Syllable.new(i,f,t,true)
           end
         end
+      end.tap do |enum|
+        enum.each( &blk ) if blk
       end
     end
   end                   
