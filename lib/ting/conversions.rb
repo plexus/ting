@@ -19,9 +19,9 @@ module Ting
             klazz::All[i].send(name+'=', v)
           end
         end
-      rescue
-        puts "Bad data in #{c.downcase}.csv : " + $!
-        raise
+      rescue 
+        STDERR << "Bad data in #{c.downcase}.csv : #{$!}"
+        raise 
       end
       
     end
@@ -31,7 +31,7 @@ module Ting
 
     def self.parse(type, string)
       capitalized = (string.downcase != string && string.downcase.capitalize == string)
-      string = string.downcase
+      string = string.to_s.downcase
       if (final = Final::All.find {|f| f.respond_to?("#{type}_standalone") && f.send("#{type}_standalone") == string})
         Syllable.new(Initial::Empty, final, nil, capitalized)
       else
@@ -39,14 +39,15 @@ module Ting
         finals.unshift(finals.delete(Final::Uo)) #hack : move Uo to the front
                                                  #otherwise wadegiles parses 'lo' as Le+O rather than Le+Uo
                                                  #probably better to add a hardcoded 'overrule' table for these cases
-        Initial::All.each do |ini|
+        Initial.each do |ini|
           finals.each do |fin|
             next if Syllable.illegal?(ini,fin)
             if string == apply_rules(type, (ini.send(type)||'') + (fin.send(type)||''))
-              return Syllable.new(ini, fin, nil, capitalized)  
+              return Syllable.new(ini, fin, nil, capitalized) 
             end
           end
         end
+        raise "Can't parse `#{string.inspect}'"
       end
     end
     
@@ -62,11 +63,11 @@ module Ting
     end
 
     def self.tokenize(str)
-      returning [] do |ary|
+      [].tap do |ary|
         str,pos = str.dup, 0
         while s=str.slice!(/[^' ]*/) and s != ""
           ary << [s.strip, pos]
-          pos+=s.length
+          pos += s.length
           str.slice!(/[' ]/)
         end
       end
@@ -74,7 +75,7 @@ module Ting
     
     private
       def self.apply_rules(type, string)
-        returning string.dup do |s|
+        string.dup.tap do |s|
           @@rules[type] && @@rules[type].each do |rule|
             s.gsub!(Regexp.new(rule['match']), rule['subst'])
           end

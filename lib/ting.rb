@@ -24,7 +24,7 @@ module Ting
     def parse(str)
       Conversions.tokenize(str).map do |s, pos|
         tone, syll = @tone.pop_tone(s)
-        tsyll = Conversions.parse(@conv,syll)
+        tsyll = Conversions.parse(@conv, syll)
         ini, fin = tsyll.initial, tsyll.final
         unless tone && fin && ini
           raise ParseError.new(s,pos),"Illegal syllable <#{s}> in input <#{str}> at position #{pos}." 
@@ -32,7 +32,7 @@ module Ting
         tsyll + tone
       end
     rescue Object => e
-      raise ParseError.new(str,0), "Parsing of #{str.inspect} failed : #{e}"
+      raise ParseError.new(str, 0, e), "Parsing of #{str.inspect} failed : #{e}"
     end
 
     alias :<< :parse

@@ -1,13 +1,10 @@
 module Ting
 
-  # All exceptions arising from this module inherit from Ting::Error
-
-  class Error < StandardError ; end
-
-  class ParseError < Error
+  class ParseError < StandardError
     attr_reader :input, :position
 
-    def initialize(input, position)
+    def initialize(input, position, error = nil)
+      super(error)
       @input=input
       @position=position
     end

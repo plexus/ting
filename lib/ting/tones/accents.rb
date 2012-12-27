@@ -3,7 +3,7 @@
 module Ting
   module Tones
     class Accents < Tone
-      class <<self
+      class << self
 
       UNICODE_TONE_GLYPHS={ 
         :a=>[97, 257, 225, 462, 224],
