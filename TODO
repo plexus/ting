@@ -1,14 +1,15 @@
-- Additional transcription systems
-  - MSP2 (or how do you call that)
-  - Palladiy (To make things interesting)
+This used to be a checklist style TODO, but with the pace that this thing evolves, I think it's more interesting to add some reflections.
+
+I wrote this Gem back in 2006. When I look at the code now there are plenty of things I would do different. The code's biggest vice is that it's too 'clever', i.e. opaque. But it gets the job done.
+
+- Additional transcription systems that could be added
+  - MPS2 (or how do you call that)
   - Gwoyueh
   - Yale
 
-- Research some rare pinyin syllables : lo, yo ^e, yai
-- Get a definitive answer about ong/ueng/weng
-- Add a README to the data/ directory with info on sources, contents and purposes
-- More tests
-- Add remembering of parameters to cgiform example, other examples
+One of the most interesting things about this undertaking has been learning the fine details of Mandarin romanization, and phonology.
+
+E.g. is 'lo' valid pinyin, or should it be 'luo'? CEDICT has entries for both, with the first being used only for exlamations. But most tables on pinyin won't list 'lo'. How about 'ng'? 'mm'? ...
 
 The core lib basically does translation on the syllable level. It can handle strings with syllables nicely seperated by spaces. Successive layers should make it possible to convert a sentence with interpunction into a different system. It should be possible to write compound words together in Hanyu, and have the syllables seperated by dashes when converting to WG. For instance:
 
