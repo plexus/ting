@@ -21,7 +21,7 @@ module Ting
       end
 
       def add_tone(syll, tone)
-        syll.gsub!('ü','v')
+        syll = syll.sub('ü','v')
         tone %= MAX_TONE
         case syll
         when /a/
@@ -31,7 +31,7 @@ module Ting
         when /o/
           syll.sub(/o/, tone_glyph(:o,tone))
         when /(i|u|v)/
-          syll.sub($1, tone_glyph($1,tone))
+          syll.sub($1, tone_glyph($1,tone)).sub('v', 'ü')
         else
           syll
         end  
@@ -45,13 +45,17 @@ module Ting
         end
       end
 
+      # returns [ tone number, syllable without tone ]
+      # e.g. ni3 => [ 3, 'ni' ]
       def pop_tone(syll)
         unpacked = syll.unpack('U*')
         each_tone_glyph do |vowel, tones|
+
           if tone_glyph = unpacked.find {|t| tones.include?(t)}
-            unpacked[unpacked.index(tone_glyph)]=vowel.to_s[0]
-            break [normalize(tones.index(tone_glyph)), unpacked.pack('U*')]
+            unpacked[unpacked.index(tone_glyph)] = vowel.to_s.unpack('U').first
+            break [normalize(tones.index(tone_glyph)), unpacked.pack('U*').sub('v', 'ü')]
           end
+
         end
       end
 
