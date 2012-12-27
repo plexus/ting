@@ -23,5 +23,16 @@ wadegiles:
 tongyong: 
   - match: feng
     subst: fong
-
-          
+palladin:
+  - match: (ц|цз|с)ы([^и].{0,2})
+    subst: \1\2
+  - match: (ц|цз|с)ыи
+    subst: \1ы
+  - match: (ц|цз|с)и(.{1,3})
+    subst: \1\2
+  - match: (ц|г|х|к|л|н|ж|чж|цз)уо
+    subst: \1о
+  - match: хуй
+    subst: хой
+  - match: цзюэ
+    subst: цзюе
