@@ -2,14 +2,16 @@ require 'rubygems'
 
 require 'rake'
 require 'rake/testtask'
+require 'rspec/core/rake_task'
 
-task :default => [:"test:ting"]
+task :default   => :all_tests
+task :all_tests => [:test, :spec]
 
-namespace "test" do
-  Rake::TestTask.new("ting") do |t|
-    $: << File.dirname(__FILE__) + '/lib'
-    t.pattern = 'test/*.rb'
-    t.verbose = true
-    t.warning = true
-  end
+Rake::TestTask.new(:test) do |t|
+  $: << File.dirname(__FILE__) + '/lib'
+  t.pattern = 'test/*.rb'
+  #t.verbose = true
+  #t.warning = true
 end
+
+RSpec::Core::RakeTask.new(:spec)
