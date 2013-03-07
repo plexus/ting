@@ -1,17 +1,15 @@
+# -*- coding: utf-8 -*-
 require 'test/unit'
 require 'ting'
 require 'yaml'
 
-if RUBY_VERSION =~ /^1.8/
-  $KCODE='u'
-end
-
-module HanyuCoverage 
+module HanyuCoverage
   grid=YAML.load(IO.read(File.dirname(__FILE__)+'/../lib/ting/data/valid_pinyin.yaml'))
   grid.each do |fname, row|
     row.each do |iname, hanyu|
+      safe_hanyu = hanyu.gsub('ü','v').gsub('ê','_e')
       eval %[
-        class Test_#{hanyu} < Test::Unit::TestCase
+        class Test_#{safe_hanyu} < Test::Unit::TestCase
           include Ting
           def initialize(s)
             super(s)
@@ -19,11 +17,11 @@ module HanyuCoverage
             @writer = Ting.writer(:hanyu, :no_tones)
           end
 
-          def test_parse_#{hanyu}
+          def test_parse_#{safe_hanyu}
             assert_equal('#{hanyu}', @writer.unparse(Syllable.new(Initial::#{iname}, Final::#{fname}, Tones::NEUTRAL_TONE)), 'Wrong hanyu for Initial::#{iname}+Final::#{fname}, expected `#{hanyu}` ')
           end
 
-          def test_unparse_#{hanyu}
+          def test_unparse_#{safe_hanyu}
             ts=@reader.parse('#{hanyu}').first
             assert_not_nil(ts, 'Reader<:hanyu, :no_tone>#parse("#{hanyu}") returned nil')
             assert_equal(Initial::#{iname}, ts.initial, 'Wrong initial for `#{hanyu}`, expected Initial::#{iname}')
@@ -33,5 +31,4 @@ module HanyuCoverage
       ]
     end
   end
-
 end
