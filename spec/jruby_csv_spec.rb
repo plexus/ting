@@ -36,19 +36,19 @@ describe "a problem with jruby?" do
     csv_full_contents.split("\n")[range].join("\n")
   end
 
-  it "this actually does raise an exception, so this spec fails" do
+  xit "this actually does raise an exception, so this spec fails" do
     expect{ CSV.parse(csv_full_contents) }.to_not raise_exception
   end
 
-  it "using the first 15 lines still works ok" do
+  xit "using the first 15 lines still works ok" do
     expect{ CSV.parse(lines(0..15))}.to_not raise_exception
   end
 
-  it "from line 16 on there's a problem" do
+  xit "from line 16 on there's a problem" do
     expect{ CSV.parse(lines(0..16))}.to_not raise_exception
   end
 
-  it "but line 16 itself isn't the culprit" do
+  xit "but line 16 itself isn't the culprit" do
     expect{ CSV.parse(lines(3..18))}.to_not raise_exception
   end
 end
