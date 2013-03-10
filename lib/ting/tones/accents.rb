@@ -5,7 +5,7 @@ module Ting
     class Accents < Tone
       class << self
 
-      UNICODE_TONE_GLYPHS={ 
+      UNICODE_TONE_GLYPHS={
         :a=>[97, 257, 225, 462, 224],
         :e=>[101, 275, 233, 283, 232],
         :i=>[105, 299, 237, 464, 236],
@@ -34,7 +34,7 @@ module Ting
           syll.sub($1, tone_glyph($1,tone)).sub('v', 'ü')
         else
           syll
-        end  
+        end
       end
 
       def peek_tone(syll)

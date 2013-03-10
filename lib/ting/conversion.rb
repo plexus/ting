@@ -1,7 +1,7 @@
 module Ting
-  
+
   #
-  # Base class for conversions like Hanyu pinyin, 
+  # Base class for conversions like Hanyu pinyin,
   # Wade-Giles, etc.
   #
   class Conversion
@@ -10,7 +10,7 @@ module Ting
     # For Wade-Giles this is a dash, Hanyu pinyin
     # uses a single quote in certain situations
     attr_reader :syllable_separator
-    
+
     # The tone handling object
     attr_reader :tones
 
@@ -48,4 +48,3 @@ module Ting
 
   end
 end
-    

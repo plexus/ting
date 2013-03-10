@@ -58,7 +58,7 @@ module Ting
 
   class Converter
     attr_reader :from_conv, :from_tone, :to_conv, :to_tone
-    
+
     def initialize(from, from_tone, to, to_tone)
       @from_conv, @from_tone, @to_conv, @to_tone = from, from_tone, to, to_tone
     end
@@ -81,7 +81,7 @@ module Ting
 
     alias :<< :convert
   end
-  
+
   class << self
     def reader(format, tones)
       Reader.new(format,tones)

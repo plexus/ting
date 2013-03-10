@@ -19,14 +19,14 @@ module Ting
             klazz::All[i].send(name+'=', v)
           end
         end
-      rescue 
+      rescue
         STDERR << "Bad data in #{c.downcase}.csv : #{$!}"
-        raise 
+        raise
       end
-      
+
     end
 
-    #Substitution rules 
+    #Substitution rules
     @@rules=YAML::load(IO.read(DATA_DIR+'rules.yaml'))
 
     def self.parse(type, string)
@@ -43,14 +43,14 @@ module Ting
           finals.each do |fin|
             next if Syllable.illegal?(ini,fin)
             if string == apply_rules(type, (ini.send(type)||'') + (fin.send(type)||''))
-              return Syllable.new(ini, fin, nil, capitalized) 
+              return Syllable.new(ini, fin, nil, capitalized)
             end
           end
         end
         raise "Can't parse `#{string.inspect}'"
       end
     end
-    
+
     def self.unparse(type, tsyll)
       str = if tsyll.initial.send(type)
               apply_rules(type, tsyll.initial.send(type) + (tsyll.final.send(type) || ''))
@@ -72,7 +72,7 @@ module Ting
         end
       end
     end
-    
+
     private
       def self.apply_rules(type, string)
         string.dup.tap do |s|
