@@ -63,12 +63,12 @@ module Ting
     end
 
     def self.tokenize(str)
-      [].tap do |ary|
+      [].tap do |tokens|
         str,pos = str.dup, 0
-        while s=str.slice!(/[^' ]*/) and s != ""
-          ary << [s.strip, pos]
-          pos += s.length
-          str.slice!(/[' ]/)
+        while str && token = str[/[^' ]*/]
+          tokens << [token.strip, pos]
+          pos += token.length
+          str = str[/[' ]+(.*)/, 1]
         end
       end
     end

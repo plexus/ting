@@ -22,12 +22,12 @@ module Ting
     end
 
     def parse(str)
-      Conversions.tokenize(str).map do |s, pos|
-        tone, syll = @tone.pop_tone(s)
+      Conversions.tokenize(str).map do |token, pos|
+        tone, syll = @tone.pop_tone(token)
         tsyll = Conversions.parse(@conv, syll)
         ini, fin = tsyll.initial, tsyll.final
         unless tone && fin && ini
-          raise ParseError.new(s,pos),"Illegal syllable <#{s}> in input <#{str}> at position #{pos}." 
+          raise ParseError.new(token, pos),"Illegal syllable <#{token}> in input <#{str}> at position #{pos}."
         end
         tsyll + tone
       end
@@ -46,7 +46,8 @@ module Ting
 
     def generate(syll)
       Array(syll).map do |s|
-        str = @tone.add_tone(Conversions.unparse(@conv, s), s.tone)
+        syllable = Conversions.unparse(@conv, s)
+        str = @tone.add_tone(syllable, s.tone)
         str.capitalize! if s.capitalized?
         str
       end.join(' ')
