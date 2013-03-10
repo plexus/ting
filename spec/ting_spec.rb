@@ -2,8 +2,8 @@
 require 'spec_helper'
 
 describe Ting do
-  let(:pinyin)   { 'dao4 ke3 dao4 fei1 chang2 dao4' }
-  let(:bopomofo) { 'ㄉㄠˋ ㄎㄜˇ ㄉㄠˋ ㄈㄟ ㄔㄤˊ ㄉㄠˋ' }
+  let(:pinyin)   { 'dao4 ke3 dao4 fei1 chang2 dao4'.force_encoding('UTF-8') }
+  let(:bopomofo) { 'ㄉㄠˋ ㄎㄜˇ ㄉㄠˋ ㄈㄟ ㄔㄤˊ ㄉㄠˋ'.force_encoding('UTF-8') }
 
   it 'should convert from Hany Pinyin to Bopomofo' do
     Ting.from(:hanyu, :numbers).to(:zhuyin, :marks).convert(pinyin).should == bopomofo

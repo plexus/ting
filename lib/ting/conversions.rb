@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'csv'
 require 'yaml'
 
@@ -11,12 +13,12 @@ module Ting
     %w(Initial Final).each do |c|
       klazz=Ting.const_get c
       begin
-        CSV.open(DATA_DIR+c.downcase+'.csv', 'r').each do |name, *values|
+        CSV.open(DATA_DIR+c.downcase+'.csv', 'r:utf-8').each do |name, *values|
           next if name == "name"
           All << name.to_s unless All.include?(name) || name =~ /standalone/i
           klazz.class_eval {attr_accessor name.to_sym}
           values.each_with_index do |v,i|
-            klazz::All[i].send(name+'=', v)
+            klazz::All[i].send(name+'=', v && v.force_encoding('UTF-8'))
           end
         end
       rescue
@@ -59,7 +61,7 @@ module Ting
             else
               apply_rules(type, tsyll.final.send(type))
             end
-      tsyll.capitalized? ? str.capitalize : str
+      (tsyll.capitalized? ? str.capitalize : str).force_encoding('UTF-8')
     end
 
     def self.tokenize(str)

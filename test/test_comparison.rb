@@ -1,14 +1,22 @@
 require 'ting'
 require 'test/unit'
-require 'csv'
-
 
 # This test uses the chart from piyin.info to compare all implemented conversion types
 # Since I can't find another reference of the hanyu pinyin 'lo', I have removed it from the table
 
 class TestCompare < Test::Unit::TestCase
-  CHART=CSV.parse(IO.read(File.dirname(__FILE__)+'/../lib/ting/data/comparison.csv'))
+  CHART_FILE = File.expand_path('../../lib/ting/data/comparison.csv', __FILE__)
   COMPARE=[:hanyu, :wadegiles, :zhuyin, :tongyong]
+
+  # Both Rubinius and JRuby are having trouble parsing our otherwise valid UTF-8 CSV file.
+  # See https://github.com/jruby/jruby/issues/563 for the JRuby issue that logs the issue.
+  # So we do our own naive CSV parsing here.
+  CHART = begin
+            File.open(CHART_FILE, 'r:UTF-8').lines.map do |line|
+              line.strip.split(',').map{|entry| entry[/\A"(.*)"\z/, 1]}
+            end
+          end
+
 
 
   # Test all combinations, included parsing/unparsing the same type
