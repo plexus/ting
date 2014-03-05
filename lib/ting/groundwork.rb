@@ -5,6 +5,8 @@
 #  * Syllable
 #  * ILLEGAL_COMBINATIONS
 
+require 'yaml'
+
 module Ting
 
   #
@@ -36,7 +38,7 @@ module Ting
             Group_5=[ Zhi,Chi,Shi,Ri ], #Retroflex
             Group_6=[ Zi,Ci,Si ],       #Fricative and affricate alveolar
            ]
-    
+
     def +(f)
       Syllable.new(self,f)
     end
@@ -48,24 +50,24 @@ module Ting
   #
   # A Chinese final (end of a syllable)
   #
-  
+
   class Final
     attr :name
 
     def initialize(n) ; @name=n ; end
 
     All=%w(
-      Empty A O E Ee Ai Ei Ao Ou An En Ang Eng Ong Er 
-      I Ia Io Ie Iai Iao Iu Ian In Iang Ing 
+      Empty A O E Ee Ai Ei Ao Ou An En Ang Eng Ong Er
+      I Ia Io Ie Iai Iao Iu Ian In Iang Ing
       U Ua Uo Uai Ui Uan Un Uang Ueng V Ue Van Vn Iong
     ).map{|c| const_set c, Final.new(c)}
-    
-    class << self 
+
+    class << self
       private :new
       include Enumerable
       def each(&blk) ; All.each(&blk) ; end
     end
-    
+
     Groups=[
             Group_0=[ Empty ],
             Group_A=[ A,O,E,Ee,Ai,Ei,Ao,Ou,An,En,Ang,Eng,Ong,Er ],
@@ -109,7 +111,7 @@ module Ting
     alias :to_s :inspect
 
     def ==( other )
-      [ other.initial, other.final, other.tone, other.capitalized ] == 
+      [ other.initial, other.final, other.tone, other.capitalized ] ==
         [ self.initial, self.final, self.tone, self.capitalized ]
     end
   end
@@ -120,7 +122,7 @@ module Ting
   #
 
   ILLEGAL_COMBINATIONS=
-    [               
+    [
      [Initial::Group_0, Final::Group_0],
      [Initial::Group_1, Final::Group_0],
      [Initial::Group_2, Final::Group_0],
@@ -144,7 +146,7 @@ module Ting
      [Initial::Group_5, [Final::O]],
      [Initial::Group_6, [Final::O]],
 
-     [[Initial::Empty], [Final::Ong]] 
+     [[Initial::Empty], [Final::Ong]]
        # TODO: Ong is actually the same as Ueng, in Hanyu Pinyin : -ong or weng
     ]
 
@@ -155,32 +157,25 @@ module Ting
     #
 
     def valid_combinations( &blk )
-      require 'yaml'
+      return to_enum(__message__) unless block_given?
       inp = YAML::load(IO.read(File.join(File.dirname(__FILE__), 'data', 'valid_pinyin.yaml')))
-      Enumerator.new do |yielder|
-        inp.each do |final, initials|
-          final = Final.const_get(final)
-          initials.each do |initial, pinyin|
-            initial = Initial.const_get(initial)
-            yielder << [initial, final]
-          end
+      inp.each do |final, initials|
+        final = Final.const_get(final)
+        initials.each do |initial, pinyin|
+          initial = Initial.const_get(initial)
+          yield [initial, final]
         end
-      end.tap do |enum|
-        enum.each( &blk ) if blk
       end
     end
 
     def all_syllables( &blk )
-      Enumerator.new do |yielder|
-        valid_combinations.map do |i,f|
-          1.upto(5) do |t|
-            yielder << Syllable.new(i,f,t,false)
-            yielder << Syllable.new(i,f,t,true)
-          end
+      return to_enum(__message__) unless block_given?
+      valid_combinations.map do |i,f|
+        1.upto(5) do |t|
+          yield Syllable.new(i,f,t,false)
+          yield Syllable.new(i,f,t,true)
         end
-      end.tap do |enum|
-        enum.each( &blk ) if blk
       end
     end
-  end                   
+  end
 end

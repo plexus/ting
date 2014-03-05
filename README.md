@@ -44,7 +44,7 @@ Parse Hanyu Pinyin
    require 'ting'
 
    reader = Ting.reader(:hanyu, :numbers)
-   reader << "wo3 ai4 ni3"
+   reader.( "wo3 ai4 ni3" )
     # => [<Ting::Syllable <initial=Empty, final=Uo, tone=3>>,
     #     <Ting::Syllable <initial=Empty, final=Ai, tone=4>>,
     #     <Ting::Syllable <initial=Ne, final=I, tone=3>>]
@@ -54,7 +54,7 @@ Generate Bopomofo
 
 ````ruby
    zhuyin = Ting.writer(:zhuyin, :marks)
-   zhuyin << (reader << "wo3 ai4 ni3")
+   zhuyin.(reader.("wo3 ai4 ni3"))
    # => "ㄨㄛˇ ㄞˋ ㄋㄧˇ"
 ````
 
@@ -62,7 +62,7 @@ Generate Wade-Giles
 
 ````ruby
    wadegiles = Ting.writer(:wadegiles, :supernum)
-   wadegiles << (reader << "qing2 kuang4 ru2 he2")
+   wadegiles.(reader.("qing2 kuang4 ru2 he2"))
    # => "ch`ing² k`uang⁴ ju² ho²"
 ````
 
@@ -70,24 +70,22 @@ Generate IPA
 
 ````ruby
    ipa = Ting.writer.new(:ipa, :ipa)
-   ipa << (reader << "you3 peng2 zi4 yuan2 fang1 lai2")
+   ipa.(reader.("you3 peng2 zi4 yuan2 fang1 lai2"))
    # => "iou˧˩˧ pʰeŋ˧˥ ts˥˩ yɛn˧˥ faŋ˥˥ lai˧˥"
 ````
 
 Since this is such a common use case, a convenience method to add diacritics to pinyin.
 
 ````ruby
-   require 'ting/string'
-
-   "wo3 ai4 ni3".pretty_tones
+   Ting.pretty_tones "wo3 ai4 ni3"
    # => "wǒ ài nǐ"
 ````
 
 Note that syllables need to be separated by spaces, feeding "peng2you3" to the parser
-does not work. The String#pretty_tones method does handle these things a bit more gracefully.
+does not work. The `String#pretty_tones` method does handle these things a bit more gracefully.
 
 If you need to parse input that does not conform, consider using a regexp to scan for valid
-syllables, then feed the syllables to the parser one by one. Have a look at #pretty_tones for
+syllables, then feed the syllables to the parser one by one. Have a look at `#pretty_tones` for
 an example of how to do this.
 
 ## REQUIREMENTS
@@ -100,6 +98,6 @@ an example of how to do this.
 
 ## LICENSE
 
-Copyright (c) 2004-2010, Arne Brasseur. (http://www.arnebrasseur.net)
+Copyright (c) 2007-2014, Arne Brasseur. (http://www.arnebrasseur.net)
 
 Available as Free Software under the GPLv3 License, see LICENSE.txt for details

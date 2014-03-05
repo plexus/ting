@@ -12,7 +12,7 @@ class TestCompare < Test::Unit::TestCase
   # See https://github.com/jruby/jruby/issues/563 for the JRuby issue that logs the issue.
   # So we do our own naive CSV parsing here.
   CHART = begin
-            File.open(CHART_FILE, 'r:UTF-8').lines.map do |line|
+            File.open(CHART_FILE, 'r:UTF-8').each_line.map do |line|
               line.strip.split(',').map{|entry| entry[/\A"(.*)"\z/, 1]}
             end
           end

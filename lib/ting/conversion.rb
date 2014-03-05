@@ -32,7 +32,7 @@ module Ting
       if Tone === tone
         @tone = tone
       else
-        @tone = Ting::Tones.const_get(tone.to_s.camelcase)
+        @tone = Ting::Tones.const_get(Ting.camelize(tone.to_s))
       end
 
       @name = self.class.name.underscore

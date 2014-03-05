@@ -7,6 +7,7 @@ require 'rspec/autorun'
 #
 # Version:
 #   jruby 1.7.2 (1.9.3p327) 2013-01-04 302c706 on Java HotSpot(TM) Server VM 1.7.0_15-b03 [linux-i386]
+# Has since been fixed, verified with 1.7.11
 
 describe "a problem with jruby?" do
   let(:csv_full_contents) {
@@ -36,19 +37,19 @@ describe "a problem with jruby?" do
     csv_full_contents.split("\n")[range].join("\n")
   end
 
-  xit "this actually does raise an exception, so this spec fails" do
+  it "this actually does raise an exception, so this spec fails" do
     expect{ CSV.parse(csv_full_contents) }.to_not raise_exception
   end
 
-  xit "using the first 15 lines still works ok" do
+  it "using the first 15 lines still works ok" do
     expect{ CSV.parse(lines(0..15))}.to_not raise_exception
   end
 
-  xit "from line 16 on there's a problem" do
+  it "from line 16 on there's a problem" do
     expect{ CSV.parse(lines(0..16))}.to_not raise_exception
   end
 
-  xit "but line 16 itself isn't the culprit" do
+  it "but line 16 itself isn't the culprit" do
     expect{ CSV.parse(lines(3..18))}.to_not raise_exception
   end
 end

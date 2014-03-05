@@ -6,23 +6,23 @@ module Ting
       def initialize(tone = :numbers, options = {})
         @options = options
         @options[:preprocess] ||= lambda {|s| s.gsub(/u:|Ü/, 'ü').downcase }
-        
+
         if Class === tone
           @tone = tone
         else
-          @tone = Ting::Tones.const_get(tone.to_s.camelcase)
+          @tone = Ting::Tones.const_get(Ting.camelize(tone.to_s))
         end
       end
 
       def valid_character_regexp
         @valid_character_regexp ||= valid_character_regexp!
       end
-      
+
       def valid_character_regexp!
         valid_chars = []
         Ting.valid_combinations do |i,f|
           1.upto(5) do |tone|
-            valid_chars += @tone.add_tone(Conversions.unparse(:hanyu,Syllable.new(i,f)), tone).uchars
+            valid_chars += @tone.add_tone(Conversions.unparse(:hanyu,Syllable.new(i,f)), tone).chars.to_a
           end
         end
         valid_chars.sort!.uniq!
@@ -32,7 +32,7 @@ module Ting
       def parse(string)
         result = []
         looking_at = []
-        string.uchars.each do |ch|
+        string.chars.each do |ch|
           head, syll = parse_tail(looking_at)
           looking_at << ch
           if syll && !parse_tail(looking_at)
@@ -58,7 +58,6 @@ module Ting
       def parse_syllable(tone_syll)
         tone_syll = tone_syll.to_s
         tone_syll = @options[:preprocess].call(tone_syll) if @options[:preprocess]
-#        p tone_syll
         tone, syll = @tone.pop_tone(tone_syll)
         if tone && syll
           ini_fini = Conversions.parse(:hanyu,syll)
@@ -71,9 +70,6 @@ module Ting
         end
       end
 
-       #     self.gsub('u:','ü').gsub(/[A-Za-züÜ]{1,5}\d/) do |m|
-       #Ting.HanyuWriter(:accents) << Ting.HanyuReader(:numbers).parse(m.downcase)
-       #end
     end
   end
 end
