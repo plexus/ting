@@ -22,7 +22,7 @@ Gem::PackageTask.new(spec).define
 
 desc "Push gem to rubygems.org"
 task :push => :gem do
-  sh "git tag v#{Hexp::VERSION}"
+  sh "git tag v#{Ting::VERSION}"
   sh "git push --tags"
-  sh "gem push pkg/hexp-#{Hexp::VERSION}.gem"
+  sh "gem push pkg/hexp-#{Ting::VERSION}.gem"
 end
