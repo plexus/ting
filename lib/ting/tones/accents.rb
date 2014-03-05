@@ -30,6 +30,8 @@ module Ting
           syll.sub(/e/, tone_glyph(:e,tone))
         when /o/
           syll.sub(/o/, tone_glyph(:o,tone))
+        when /(i|u|v)\z/
+          syll.sub($1, tone_glyph($1,tone)).sub('v', 'ü')
         when /(i|u|v)/
           syll.sub($1, tone_glyph($1,tone)).sub('v', 'ü')
         else
