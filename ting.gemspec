@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.authors  = [ 'Arne Brasseur' ]
   gem.email    = [ 'arne@arnebrasseur.net' ]
   gem.homepage = 'http://github.com/github/ting'
-
+  gem.license  = 'GPL-3.0'
   gem.platform = Gem::Platform::RUBY
 
   gem.description = %q{Ting can convert between various phonetic representations of Mandarin Chinese. It can also handle various representation of tones, so it can be used to convert pinyin with numbers to pinyin with tones.}
