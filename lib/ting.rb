@@ -19,6 +19,8 @@ require 'ting/procable'
 require 'ting/reader'
 require 'ting/writer'
 require 'ting/converter'
+require 'ting/hanyu_pinyin_parser'
+require 'ting/memoize_call'
 
 module Ting
   class << self

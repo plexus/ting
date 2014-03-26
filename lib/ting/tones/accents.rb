@@ -22,7 +22,7 @@ module Ting
 
       def add_tone(syll, tone)
         syll = syll.sub('ü','v')
-        tone %= MAX_TONE
+        tone = tone % MAX_TONE
         case syll
         when /a/
           syll.sub(/a/, tone_glyph(:a,tone))
@@ -40,29 +40,30 @@ module Ting
       end
 
       def peek_tone(syll)
-        unpacked = syll.unpack('U*')
-        each_tone_glyph do |vowel, tones|
-          tone_glyph=unpacked.find {|t| tones.include?(t)}
+        candidates = each_tone_glyph.map do |vowel, tones|
+          tone_glyph = syll.codepoints.find {|t| tones.include?(t)}
           normalize( tones.index(tone_glyph) ) if tone_glyph
-        end
+        end.compact
+        candidates.reject {|tone| tone == 5}.first || candidates.first
       end
 
       # returns [ tone number, syllable without tone ]
       # e.g. ni3 => [ 3, 'ni' ]
       def pop_tone(syll)
-        unpacked = syll.unpack('U*')
-        each_tone_glyph do |vowel, tones|
-
-          if tone_glyph = unpacked.find {|t| tones.include?(t)}
-            unpacked[unpacked.index(tone_glyph)] = vowel.to_s.unpack('U').first
-            break [normalize(tones.index(tone_glyph)), unpacked.pack('U*').sub('v', 'ü')]
+        tone = peek_tone(syll)
+        unpacked = syll.codepoints.to_a
+        each_tone_glyph do |vowel, tone_glyph_codepoints|
+          tone_glyph_cp = tone_glyph_codepoints[tone % MAX_TONE]
+          if unpacked.include? tone_glyph_cp
+            unpacked[unpacked.index(tone_glyph_cp)] = vowel.to_s.unpack('U').first
+            return [normalize(tone_glyph_codepoints.index(tone_glyph_cp)), unpacked.pack('U*').sub('v', 'ü')]
           end
-
         end
       end
 
       private
         def each_tone_glyph
+          return to_enum(__method__) unless block_given?
           [:a,:e,:i,:o,:u,:v].each do |v|  #Order is significant
             vowel, tones = v, UNICODE_TONE_GLYPHS[v]
             yield vowel,tones

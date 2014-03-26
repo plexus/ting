@@ -157,7 +157,7 @@ module Ting
     #
 
     def valid_combinations( &blk )
-      return to_enum(__message__) unless block_given?
+      return to_enum(__method__) unless block_given?
       inp = YAML::load(IO.read(File.join(File.dirname(__FILE__), 'data', 'valid_pinyin.yaml')))
       inp.each do |final, initials|
         final = Final.const_get(final)
@@ -169,7 +169,7 @@ module Ting
     end
 
     def all_syllables( &blk )
-      return to_enum(__message__) unless block_given?
+      return to_enum(__method__) unless block_given?
       valid_combinations.map do |i,f|
         1.upto(5) do |t|
           yield Syllable.new(i,f,t,false)
