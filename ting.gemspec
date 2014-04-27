@@ -1,4 +1,3 @@
-
 require File.expand_path('../lib/ting/version', __FILE__)
 
 Gem::Specification.new do |gem|
@@ -6,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.version  = Ting::VERSION
   gem.authors  = [ 'Arne Brasseur' ]
   gem.email    = [ 'arne@arnebrasseur.net' ]
-  gem.homepage = 'http://github.com/github/ting'
+  gem.homepage = 'https://github.com/plexus/ting'
   gem.license  = 'GPL-3.0'
   gem.platform = Gem::Platform::RUBY
 
