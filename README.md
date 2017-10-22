@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/arnebrasseur/ting.png)](https://travis-ci.org/arnebrasseur/ting) [![Code Climate](https://codeclimate.com/github/arnebrasseur/ting.png)](https://codeclimate.com/github/arnebrasseur/ting)
+[![Build Status](https://travis-ci.org/arnebrasseur/ting.png)](https://travis-ci.org/plexus/ting) [![Code Climate](https://codeclimate.com/github/arnebrasseur/ting.png)](https://codeclimate.com/github/plexus/ting)
 
 # Ting
 
