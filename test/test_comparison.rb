@@ -1,7 +1,7 @@
 require 'ting'
 require 'test/unit'
 
-# This test uses the chart from piyin.info to compare all implemented conversion types
+# This test uses the chart from pinyin.info to compare all implemented conversion types
 # Since I can't find another reference of the hanyu pinyin 'lo', I have removed it from the table
 
 class TestCompare < Test::Unit::TestCase
