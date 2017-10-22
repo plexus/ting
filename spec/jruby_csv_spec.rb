@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-
+require 'spec_helper'
 require 'csv'
-require 'rspec/autorun'
 
 # Describes a problem with CSV parsing on JRuby, see output at the bottom.
 #
