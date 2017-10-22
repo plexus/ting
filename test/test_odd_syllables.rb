@@ -13,4 +13,16 @@ class TestOddSyllables < Test::Unit::TestCase
       assert_equal pinyin, pinyin2
     end
   end
+
+  def test_wg_conversion
+    pinyin_to_wg = Ting::Converter.new(:hanyu, :numbers, :wadegiles, :numbers)
+    wg_to_pinyin = Ting::Converter.new(:wadegiles, :numbers, :hanyu, :numbers)
+    
+    # These syllable could not be converted to Wade-Giles in Ting 0.9.
+    %w(yo1 yai2).each do |pinyin|
+      wg = pinyin_to_wg.convert(pinyin)
+      pinyin2 = wg_to_pinyin.convert(wg)
+      assert_equal pinyin, pinyin2
+    end
+  end
 end
