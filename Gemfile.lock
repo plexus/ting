@@ -8,6 +8,7 @@ GEM
   specs:
     diff-lcs (1.2.5)
     ffi2-generators (0.1.1)
+    power_assert (0.4.1)
     psych (2.0.4)
     racc (1.4.11)
     rake (10.1.1)
@@ -221,6 +222,8 @@ GEM
     rubysl-xmlrpc (2.0.0)
     rubysl-yaml (2.0.4)
     rubysl-zlib (2.0.1)
+    test-unit (3.2.3)
+      power_assert
 
 PLATFORMS
   java
@@ -232,4 +235,8 @@ DEPENDENCIES
   rake (~> 10.1)
   rspec (~> 2.14)
   rubysl (~> 2.0)
+  test-unit
   ting!
+
+BUNDLED WITH
+   1.15.4
