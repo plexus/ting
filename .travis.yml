@@ -5,7 +5,7 @@ rvm:
   - 2.2.5
   - 2.3.4
   - 2.4.2
-  - jruby
+  # - jruby
   - ruby-head
   - jruby-head
 matrix:
