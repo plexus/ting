@@ -1,12 +1,12 @@
 language: ruby
 rvm:
-  - 2.0.0
-  - 2.1.1
-  - 2.2.5
-  - 2.3.4
-  - 2.4.2
-  # - jruby
+  - ruby-2.0.0
+  - ruby-2.1.1
+  - ruby-2.2.5
+  - ruby-2.3.4
+  - ruby-2.4.2
   - ruby-head
+  - jruby-9.1.9.0
   - jruby-head
 matrix:
   allow_failures:
