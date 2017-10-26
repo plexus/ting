@@ -2,11 +2,11 @@
 "hanyu","i","a","o","e",,"ai","ei","ao","ou","an","en","ang","eng","ong",,"i","ia",,"ie",,"iao","iu","ian","in","iang","ing","u","ua","uo","uai","ui","uan","un","uang",,"ü","üe","üan","ün","iong"
 "hanyu_standalone",,"a","o","e","ê","ai","ei","ao","ou","an","en","ang","eng",,"er","yi","ya","yo","ye","yai","yao","you","yan","yin","yang","ying","wu","wa","wo","wai","wei","wan","wen","wang","weng","yu","yue","yuan","yun","yong"
 "hanyu_no_abbrev","i","a","o","e",,"ai","ei","ao","ou","an","en","ang","eng","ong",,"i","ia","io","ie","iai","iao","iou","ian","ien","iang","ieng","u","ua","uo","uai","uei","uan","uen","uang","ueng","ü","üe","üan","üen","iong"
-"ipa",,"a","ɔ","ə",,"ai","ei","au","ou","an","en","aŋ","eŋ","ʊŋ","aɻ","i",,,"iɛ",,,"iou","iɛn","ɪn",,"iŋ","u",,"uɔ",,"uei","uan",,,"ueŋ","y","yuɛ","yɛn","yn","yʊŋ"
+"ipa",,"a","ɔ","ə","ɛ","ai","ei","au","ou","an","en","aŋ","eŋ","ʊŋ","aɻ","i","ja","jɔ","iɛ","jai̯","jau̯","iou","iɛn","ɪn","jaŋ","iŋ","u","wa","uɔ","wai̯","uei","uan","wən","waŋ","ueŋ","y","yuɛ","yɛn","yn","yʊŋ"
 "tongyong","ih","a","o","e",,"ai","ei","ao","ou","an","en","ang","eng","ong",,"i","ia",,"ie",,"iao","iou","ian","in","iang","ing","u","ua","uo","uai","uei","uan","un","uang",,"yu","yue","yuan","yun","yong"
 "tongyong_standalone",,"a","o","e","ê","ai","ei","ao","ou","an","en","ang","eng",,"er","yi","ya","yo","ye","yai","yao","you","yan","yin","yang","ying","wu","wa","wo","wai","wei","wan","wun","wang","wong","yu","yue","yuan","yun","yong"
 "wadegiles","ih","a","o","e",,"ai","ei","ao","ou","an","en","ang","eng","ung","erh","i","ia",,"ieh",,"iao","iu","ien","in","iang","ing","u","ua","uo","uai","ui","uan","un","uang",,"ü","üeh","üan","ün","iung"
-"wadegiles_standalone",,,,,,,,,,,,,,,,,"ya","yo","yeh","yai","yao","yu","yan","yin","yang","ying","wu","wa","wo","wai","wei","wan","wen","wang","weng","yü","yüeh","yüan","yün","yung"
+"wadegiles_standalone",,,,,"?",,,,,,,,,,,,"ya","yo","yeh","yai","yao","yu","yan","yin","yang","ying","wu","wa","wo","wai","wei","wan","wen","wang","weng","yü","yüeh","yüan","yün","yung"
 "zhuyin",,"ㄚ","ㄛ","ㄜ","ㄝ","ㄞ","ㄟ","ㄠ","ㄡ","ㄢ","ㄣ","ㄤ","ㄥ","ㄨㄥ","ㄦ","ㄧ","ㄧㄚ","ㄧㄛ","ㄧㄝ","ㄧㄞ","ㄧㄠ","ㄧㄡ","ㄧㄢ","ㄧㄣ","ㄧㄤ","ㄧㄥ","ㄨ","ㄨㄚ","ㄨㄛ","ㄨㄞ","ㄨㄟ","ㄨㄢ","ㄨㄣ","ㄨㄤ","ㄨㄥ","ㄩ","ㄩㄝ","ㄩㄢ","ㄩㄣ","ㄩㄥ"
 "palladius","и","а","о","э",,"ай","эй","ао","оу","ань","энь","ан","эн","ун","эр","и","я","ё","е","яй","яо","ю","янь","инь","ян","ин","у","уа","уо","уай","уй","уaнь","унь","уaн","вэн","юй","юэ","юaнь","юнь","юн"
-"palladius_standalone",,,,,,,,,,,,,,"вэн",,,,,,,,,,,,,,"ва","во","вай","вэй","вaнь","вэнь","вaн",,,,,
+"palladius_standalone",,,,,"?",,,,,,,,,"вэн",,,,,,,,,,,,,,"ва","во","вай","вэй","вaнь","вэнь","вaн",,,,,
