@@ -33,6 +33,6 @@ palladius:
   - match: (ц|г|х|к|л|н|ж|чж|цз)уо
     subst: \1о
   - match: хуй
-    subst: хой
+    subst: хуэй
   - match: цзюэ
     subst: цзюе
