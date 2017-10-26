@@ -52,13 +52,13 @@ module Ting
 
 
     def pretty_tones(string)
-      string.gsub('u:','ü').gsub(/[A-Za-züÜ]{1,5}\d/) do |syll|
+      string.gsub('u:','ü').gsub(/[A-Za-züÜ]{1,7}\d?/) do |syll|
         SYLLABLE_CACHE[syll]
       end
     end
 
     def bpmf(string)
-      string.gsub('u:','ü').scan(/[A-Za-züÜ]{1,5}\d/).map do |m|
+      string.gsub('u:','ü').scan(/[A-Za-züÜ]{1,7}\d?/).map do |m|
         Ting.writer(:zhuyin, :marks).(
           Ting.reader(:hanyu, :numbers).(m.downcase)
         )

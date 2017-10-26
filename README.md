@@ -74,7 +74,7 @@ Generate IPA
    # => "iou˧˩˧ pʰeŋ˧˥ ts˥˩ yɛn˧˥ faŋ˥˥ lai˧˥"
 ````
 
-Since this is such a common use case, a convenience method to add diacritics to pinyin.
+Since this is such a common use case, a convenience method exists to add diacritics to pinyin.
 
 ````ruby
    Ting.pretty_tones "wo3 ai4 ni3"
@@ -82,11 +82,13 @@ Since this is such a common use case, a convenience method to add diacritics to 
 ````
 
 Note that syllables need to be separated by spaces, feeding "peng2you3" to the parser
-does not work. The `String#pretty_tones` method does handle these things a bit more gracefully.
+does not work. The `Ting.pretty_tones(string)` method does handle these things a bit more gracefully.
 
 If you need to parse input that does not conform, consider using a regexp to scan for valid
-syllables, then feed the syllables to the parser one by one. Have a look at `#pretty_tones` for
-an example of how to do this.
+syllables, then feed the syllables to the parser one by one. Have a look at `Ting.pretty_tones` for
+an example of how to do this, but note that it does not support special cases like erhua
+(wanr2 = wan2 er) or non-standard Pinyin syllables like 嗯/"ń" or 呣／"ḿ" (which appear in the official
+Unicode data and some textbooks).
 
 ## REQUIREMENTS
 
