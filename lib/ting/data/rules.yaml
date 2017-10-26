@@ -23,7 +23,7 @@ wadegiles:
 tongyong: 
   - match: feng
     subst: fong
-palladin:
+palladius:
   - match: (ц|цз|с)ы([^и].{0,2})
     subst: \1\2
   - match: (ц|цз|с)ыи
