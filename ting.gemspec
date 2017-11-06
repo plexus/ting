@@ -13,9 +13,11 @@ Gem::Specification.new do |gem|
   gem.summary = %q{A conversion library for Chinese transcription methods like Hanyu Pinyin, Bopomofo and Wade-Giles.}
 
   gem.require_paths    = %w[ lib ]
+  gem.bindir           = 'bin'
   gem.files            = `git ls-files`.split($/)
   gem.test_files       = `git ls-files -- spec test`.split($/)
   gem.extra_rdoc_files = %w[ README.md History.txt TODO ]
+  gem.executables      << 'ting_table'
 
   gem.add_development_dependency 'rake', '~> 10.1'
   gem.add_development_dependency 'rspec', '~> 2.14'

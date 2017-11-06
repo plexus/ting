@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
+
+require 'ting'
+require 'csv'
+
+zhuyin = Ting.writer(:zhuyin, :marks)
+pinyin = Ting.writer(:hanyu, :accents)
+pinyin2 = Ting.writer(:hanyu, :numbers)
+
+writers = [
+  [:hanyu, :numbers],
+  [:hanyu, :accents],
+  [:ipa, :ipa],
+  [:tongyong, :accents],
+  [:wadegiles, :supernum],
+  [:zhuyin, :marks],
+  [:palladius, :no_tones]
+].map {|args| Ting.writer(*args)}
+
+
+Ting.all_syllables do |s|
+  puts CSV.generate { |csv|
+    csv.puts writers.map {|w| w.call(s) }
+  }
+end

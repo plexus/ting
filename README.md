@@ -10,6 +10,10 @@ to pinyin with tones.
 Hanyu Pinyin, Bopomofo, Wade-Giles, Tongyong Pinyin
 and International Phonetic Alphabet (IPA) are supported.
 
+## INSTALL
+
+* gem install ting
+
 ## SYNOPSIS
 
 To parse your strings create a `Reader` object. Ting.reader() takes two
@@ -90,16 +94,16 @@ an example of how to do this, but note that it does not support special cases li
 (wanr2 = wan2 er) or non-standard Pinyin syllables like 嗯/"ń" or 呣／"ḿ" (which appear in the official
 Unicode data and some textbooks).
 
+### ting_table
+
+The `ting_table` script will spit out a CSV table of all syllables and formats Ting knows about. Useful if you want to do conversion in other languages.
+
 ## REQUIREMENTS
 
 * none, Ting uses nothing but Ruby
 
-## INSTALL
-
-* gem install ting
-
 ## LICENSE
 
-Copyright (c) 2007-2014, Arne Brasseur. (http://www.arnebrasseur.net)
+Copyright (c) 2007-2017, Arne Brasseur. (http://www.arnebrasseur.net)
 
 Available as Free Software under the GPLv3 License, see LICENSE.txt for details
