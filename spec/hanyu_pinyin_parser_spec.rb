@@ -51,6 +51,13 @@ describe Ting::HanyuPinyinParser do
     ])
   end
 
+  it 'should parse sheng3lve4 correctly' do
+    expect(Ting::HanyuPinyinParser.new.parse("shěnglüè")).to eq([
+      Ting::Syllable.new( Ting::Initial::Shi, Ting::Final::Eng, 3 ),
+      Ting::Syllable.new( Ting::Initial::Le,  Ting::Final::Ue,  4 ),
+    ])
+  end
+
   it 'should parse regardless of apostrophes and weird whitespace' do
     pinyin = "Xī'ān\thǎowánr\tma?\nHǎowánr!"
     expect(Ting::HanyuPinyinParser.new.parse(pinyin).map(&:tone)).to eq([1, 1, 3, 2, 5, 5, 3, 2, 5])
