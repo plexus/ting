@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ting (0.10.0)
+    ting (0.11.0)
 
 GEM
   remote: https://rubygems.org/
@@ -239,4 +239,4 @@ DEPENDENCIES
   ting!
 
 BUNDLED WITH
-   1.15.4
+   1.16.1
