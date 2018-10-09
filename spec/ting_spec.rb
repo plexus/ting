@@ -18,7 +18,7 @@ describe Ting do
   end
   
   it 'should parse syllables correctly' do
-    expect(Ting.pretty_tones('wo3 de peng2you3 hen3 zhuang4')).to eq('wǒ de péngyǒu hěn zhuàng')
-    expect(Ting.bpmf('wo3 de peng2you3 hen3 zhuang4')).to eq('ㄨㄛˇ ㄉㄜ˙ ㄆㄥˊ ㄧㄡˇ ㄏㄣˇ ㄓㄨㄤˋ')
+    expect(Ting.pretty_tones('Wo3 de Ou1zhou1 peng2you3 hen3 zhuang4')).to eq('wǒ de ōuzhōu péngyǒu hěn zhuàng')
+    expect(Ting.bpmf('Wo3 de peng2you3 hen3 zhuang4')).to eq('ㄨㄛˇ ㄉㄜ˙ ㄆㄥˊ ㄧㄡˇ ㄏㄣˇ ㄓㄨㄤˋ')
   end
 end
