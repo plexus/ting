@@ -111,6 +111,8 @@ module Ting
     alias :to_s :inspect
 
     def ==( other )
+      return false unless other.is_a? Syllable
+
       [ other.initial, other.final, other.tone, other.capitalized ] ==
         [ self.initial, self.final, self.tone, self.capitalized ]
     end
