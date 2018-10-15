@@ -27,7 +27,7 @@ module Ting
         when /a/
           syll.sub(/a/, tone_glyph(:a,tone))
         when /e/
-          syll.sub(/e/, tone_glyph(:e,tone))
+          syll.sub(/e/, tone_glyph(:e,tone)).sub('v', 'ü')
         when /o/
           syll.sub(/o/, tone_glyph(:o,tone))
         when /(i|u|v)\z/
