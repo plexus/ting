@@ -20,10 +20,17 @@ module Ting
 
     def pinyin_regexp
       # This will parse a cluster of pinyin, i.e. an uninterrupted string of pinyin characters without punctuation.
-      # In the middle of a cluster, we know that syllables starting in a vowel (like 'an') cannot appear,
-      # because these syllables have to be prefixed with an apostrophe.
-      # Example: "hǎi'àn" must be parsed as two clusters ("hǎi" and "àn"), whereas "gūnánguǎnǚ" is a single cluster.
-      @pinyin_cluster_regexp ||= /\A(#{Regexp.union(all_syllables)})(#{Regexp.union(consonant_syllables)})*(r)?\Z/
+      @pinyin_cluster_regexp ||= /\A
+        # Every syllable can appear at the start of a cluster.
+        (#{Regexp.union(all_syllables)})
+        # However, only syllables starting with a consonant can follow, as syllables starting with a vowel have to
+        # be prefixed with an apostrophe.
+        # Since it is common to omit the apostrophe when there is no ambiguity, also allow syllables starting with
+        # a vowel after all letters except n and g, and after -ong, since -on does not appear at the end of a valid
+        # syllable.
+        (#{Regexp.union(consonant_syllables)}|(?<=[^ng]|[ōóǒòo]ng)#{Regexp.union(all_syllables)})*
+        (r)?
+        \Z/x
     end
 
     def pinyin_separator_regexp
