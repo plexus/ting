@@ -14,40 +14,52 @@ module Ting
       @all_syllables ||= Ting.all_syllables.map(&hanyu_writer).sort_by(&:length).reverse
     end
 
-    def sylls_with_erhua
-      @with_erhua ||= all_syllables.
-                        # We assume that syllables ending in 'r' cannot have additional erhua.
-                        reject {|p| p.end_with?('r')}.
-                        # Don't shadow existing syllables, to avoid parsing "er" as "e" + "er".
-                        reject {|p| all_syllables.include?(p + 'r')}.
-                        # Erhua syllables must be followed by whitespace.
-                        map {|p| p + 'r '}
+    def consonant_syllables
+      @consonant_syllables ||= all_syllables.grep(/^[bcdfghjklmnpqrstwxyz]/i)
     end
 
     def pinyin_regexp
-      @pinyin_regexp ||= Regexp.union(*sylls_with_erhua, *all_syllables)
+      # This will parse a cluster of pinyin, i.e. an uninterrupted string of pinyin characters without punctuation.
+      # In the middle of a cluster, we know that syllables starting in a vowel (like 'an') cannot appear,
+      # because these syllables have to be prefixed with an apostrophe.
+      # Example: "hǎi'àn" must be parsed as two clusters ("hǎi" and "àn"), whereas "gūnánguǎnǚ" is a single cluster.
+      @pinyin_cluster_regexp ||= /\A(#{Regexp.union(all_syllables)})(#{Regexp.union(consonant_syllables)})*(r)?\Z/
     end
 
-    def split_pinyin(pinyin)
-      pinyin.scan(pinyin_regexp).flat_map do |syll|
-        if sylls_with_erhua.include?(syll) && ! all_syllables.include?(syll)
-          # For erhua syllables, cut off the trailing 'r ' string (added in #sylls_with_erhua).
-          # Insert a silent er5 syllable in its place.
-          [ syll[0..-3], 'er']
-        else
-          [ syll ]
+    def pinyin_separator_regexp
+      # A regular expression that matches every character that can *not* appear in pinyin.
+      @pinyin_separator_regexp ||= Regexp.new("[^#{all_syllables.join.downcase.split("").sort.uniq.join}]+")
+    end
+
+    def parse_cluster(pinyin)
+      syllables = []
+
+      # Chop off one syllable at a time from the end by continuously matching the same regular expression.
+      # This ensures the pinyin will be split into only valid pinyin syllables. Because a match capture will
+      # only contain the *last* content it has matched, we have to use a loop.
+      while match = pinyin_regexp.match(pinyin)
+        # If an 'r' at the end was matched, this implies that all other parts of the string were matched as
+        # syllables, and this cluster uses erhua.
+        if 'r' == match[3]
+          syllables << 'er'
+          pinyin = pinyin.chop
         end
+        last_syllable = match[2] || match[1]
+        syllables << last_syllable
+        pinyin = pinyin[0, pinyin.length - last_syllable.length]
       end
+
+      raise ArgumentError, "Unparseable pinyin fragment encountered: #{pinyin}" if !pinyin.empty?
+
+      syllables.reverse
     end
 
     def parse(pinyin)
-      # Ting cannot parse uppercase pinyin with accents yet.
+      # hanyu_reader cannot parse uppercase pinyin.
       pinyin = pinyin.downcase
-      # Normalize all whitespace into a single space.
-      pinyin = pinyin.gsub(/[[:space:][:punct:]]/, " ")
-      # Append a space to the string so that the regexp above will match erhua at the end.
-      pinyin += ' '
-      split_pinyin(pinyin).map(&hanyu_reader).flatten
+
+      clusters = pinyin.split(pinyin_separator_regexp)
+      clusters.flat_map {|cluster| parse_cluster(cluster)}.flat_map(&hanyu_reader)
     end
     alias call parse
 
