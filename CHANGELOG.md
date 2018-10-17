@@ -9,11 +9,15 @@ All notable changes to this project will be documented in this file. This change
 
 ## [Unreleased]
 
+### Changed
+- `Ting.pretty_tones` inserts apostrophes before syllables beginning with a, e, o
+- `Ting::HanyuPinyinParser` is better at splitting up compound words correctly
+
 ## [0.11.0] - released 2017-11-06
 
 ### Changed
 - Make `Ting.pretty_tones` work with bopomofo
-- Correct name of Palladius (Cyrilic transcription)
+- Correct name of Palladius (Cyrillic transcription)
 - Add missing IPA finals
 - Change Palladius transcription of "hui" to хуэй
 
