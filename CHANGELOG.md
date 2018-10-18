@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file. This change
 
 ## [Unreleased]
 
+## [0.12.0] - released 2018-10-18
+
 ### Changed
 - `Ting.pretty_tones` inserts apostrophes before syllables beginning with a, e, o
 - `Ting::HanyuPinyinParser` is better at splitting up compound words correctly
@@ -24,5 +26,6 @@ All notable changes to this project will be documented in this file. This change
 ### Added
 - `bin/ting_table` script
 
-[Unreleased]: https://github.com/lambdaisland/uri/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/lambdaisland/uri/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/plexus/ting/compare/v0.12.0...v0.11.0
 [0.11.0]: https://github.com/plexus/ting/compare/v0.11.0...v0.10.0
