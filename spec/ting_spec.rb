@@ -21,4 +21,15 @@ describe Ting do
     expect(Ting.pretty_tones('Wo3 de Ou1zhou1 peng2you3 hen3 zhuang4')).to eq('wǒ de ōuzhōu péngyǒu hěn zhuàng')
     expect(Ting.bpmf('Wo3 de peng2you3 hen3 zhuang4')).to eq('ㄨㄛˇ ㄉㄜ˙ ㄆㄥˊ ㄧㄡˇ ㄏㄣˇ ㄓㄨㄤˋ')
   end
+
+  it 'should be able to pretty-print simple strings' do
+    expect(Ting.pretty_tones('wo3 ai4 ni3')).to eq('wǒ ài nǐ')
+    expect(Ting.pretty_tones('you3dian3r hao3xiao4')).to eq('yǒudiǎnr hǎoxiào')
+  end
+
+  it 'should insert apostrophes when appropriate' do
+    expect(Ting.pretty_tones('hai3an4')).to eq("hǎi'àn")
+    expect(Ting.pretty_tones('ding4e2')).to eq("dìng'é")
+    expect(Ting.pretty_tones('an5an5an5an5an')).to eq("an'an'an'an'an")
+  end
 end
