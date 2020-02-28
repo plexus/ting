@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.extra_rdoc_files = %w[ README.md History.txt TODO ]
   gem.executables      << 'ting_table'
 
-  gem.add_development_dependency 'rake', '~> 10.1'
+  gem.add_development_dependency 'rake', '~> 13.0'
   gem.add_development_dependency 'rspec', '~> 2.14'
   gem.add_development_dependency 'test-unit'
 end
